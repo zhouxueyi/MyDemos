@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+数字转汉字
+<input type="text" id="t"/>
+<button type="button" onclick="Num();">go</button>
+<div id="data"></div>
+</body>
+<script>
+
+
+var myMap = new Map();
+
+myMap.set(0, "零");
+myMap.set(1, "一");
+myMap.set(2, "二");
+myMap.set(3, "三");
+myMap.set(4, "四");
+myMap.set(5, "五");
+myMap.set(6, "六");
+myMap.set(7, "七");
+myMap.set(8, "八");
+myMap.set(9, "九");
+
+function Num(){
+    var num = document.getElementById("t").value;
+//    var num = "123456789012";
+    var len  = num.length;
+    var text = "";
+    if(len > 12 || len == 0){
+        text = "数据长度非法";
+    }else{
+        for(var i = 1; i < len + 1 ;i++){
+            var p = len - i;
+            var n = parseInt(num[p]);
+            if(n >= 0 && n <= 9){
+                if(n != 0){
+                    var temp = myMap.get(n);
+
+                    if((i - 1) / 4 == 2 && i % 4 == 1){
+                        temp += "亿";
+                    }else if((i - 1) / 4 == 1 && i % 4 == 1){
+                        temp += "万";
+                    }
+
+                    if(i % 4 == 2){
+                        temp += "十";
+                    }else if(i % 4 == 3){
+                        temp += "百";
+                    }else if(i % 4 == 0){
+                        temp += "千";
+                    }
+                    text = temp + text;
+                }
+            }else{
+                text = "数据非法";
+                break;
+            }
+        }
+
+    }
+    document.getElementById("data").innerHTML = text;
+}
+</script>
+
+</html>
